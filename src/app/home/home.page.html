@@ -1,14 +1,74 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
+<!-- <ion-header>
+	<ion-toolbar>
+		<ion-title>To Do List</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-</ion-content>
+
+<ion-content padding>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="taskName" placeholder="Enter task"></ion-input>
+      <div class="item-note" item-end>
+        <button ion-button (click)="addTask()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+    </ion-item>
+    <div padding>
+      <ion-list>
+        <ion-item *ngFor="let todo of taskList; let i = index">
+          {{todo}}
+          <div class="item-note" item-end>
+              <button ion-button (click)="updateTask(i)">
+                <ion-icon name="create"></ion-icon>
+              </button>
+              <button ion-button (click)="deletetask(i)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+            </div>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content> -->
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>ToDo App</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <ion-content>
+      <ion-item>
+        <ion-label position="floating">Add ToDo</ion-label>
+        <ion-input type="text" [(ngModel)]="txtInput"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-button color="primary" (click)="AddToDo($event)">Done</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Filter</ion-label>
+        <ion-select placeholder="Select One" [(ngModel)]="filterBy" (ionChange)="doFilterStatus($event)">
+          <ion-select-option value="complete">Complete</ion-select-option>
+          <ion-select-option value="pending">Pending</ion-select-option>
+          <ion-select-option value="all">All</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-title padding>ToDo List</ion-title>
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of filterItems; let i = index">
+          <ion-item>
+            <ion-label>{{item.value}}</ion-label>
+          </ion-item>
+          <ion-item-options side="start" (ionSwipe)="test()">
+            <ion-item-option color="success" (click)="doComplete(item)" expandable>Complete</ion-item-option>
+          </ion-item-options>
+          <ion-item-options side="end" (ionSwipe)="delete(i)">
+            <ion-item-option color="danger" (click)="delete(i)" expandable>
+              <ion-icon name="close"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-content>
+  </ion-content>
