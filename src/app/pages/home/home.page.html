@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/new-item']">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="filter">
+      Filter by status: Complete  
+      <ion-checkbox (ionChange)="filterItems($event.detail.checked);" [(ngModel)]="filterCompleted"></ion-checkbox>
+  </div>
+  <ion-list>
+    <div class="no-item-div" *ngIf="items && !items.length">
+      No filter items to display
+    </div>
+    <ion-item *ngFor="let item of items">
+      <div class="flex-container">
+        <div>
+            <ion-checkbox (click)="editTodo(item);"></ion-checkbox>
+        </div>
+        <div class="title-div" (click)="editItem(item);">
+          <ion-label>
+            {{ item.title }}
+          </ion-label>
+        </div>  
+        <div class="trash-icon" (click)="deleteItem(item)">
+          <ion-icon name="trash"></ion-icon>
+        </div>
+      </div>
+      
+    </ion-item>
+  </ion-list>
+</ion-content>
